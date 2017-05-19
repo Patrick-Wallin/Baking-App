@@ -65,8 +65,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapterViewHolder>
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Bundle recipeDetail = new Bundle();
-                    //recipeDetail.putParcelable("currentRecipe",recipe);
                     Intent intent = new Intent(mContext, RecipeDetailActivity.class);
                     intent.putExtra("currentRecipe",recipe);
                     mContext.startActivity(intent);

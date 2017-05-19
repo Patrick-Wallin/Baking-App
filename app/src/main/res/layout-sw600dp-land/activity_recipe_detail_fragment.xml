@@ -1,8 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recipe_details_fragment"
+        android:layout_weight="2"
+        layout="@layout/activity_recipe_ingredient_direction" />
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recipe_steps_fragment"
+        android:layout_weight="1"
+        layout="@layout/activity_recipe_step_detail" />
+
+    <!--
     <fragment
         android:name="com.example.android.bakingapp.RecipeDetailActivityFragment"
         android:layout_width="0dp"
@@ -17,4 +32,5 @@
         android:id="@+id/recipe_steps_fragment"
         android:layout_weight="55">
     </fragment>
+    -->
 </LinearLayout>

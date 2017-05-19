@@ -38,31 +38,35 @@ public class RecipeDetailActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_recipe_detail_fragment,container,false);
 
-        if(rootView.findViewById(R.id.recipe_steps_fragment) == null) {
+        mRecyclerViewIngredients = (RecyclerView) rootView.findViewById(R.id.recipe_detail_ingredients_recycler_view);
+        mRecyclerViewStepDescriptions = (RecyclerView) rootView.findViewById(R.id.recipe_detail_steps_recycler_view);
+
+        if (mRecipeDetailIngredientsAdapter == null) {
+            mRecipeDetailIngredientsAdapter = new RecipeDetailIngredientsAdapter(mRecipe, getActivity());
+        } else {
+            mRecipeDetailIngredientsAdapter.setRecipeData(mRecipe);
+        }
+        if (mRecipeDetailStepDescriptionsAdapter == null) {
+            mRecipeDetailStepDescriptionsAdapter = new RecipeDetailStepDescriptionsAdapter(mRecipe, getActivity());
+        } else {
+            mRecipeDetailStepDescriptionsAdapter.setRecipeData(mRecipe);
+        }
+        mRecyclerViewIngredients.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerViewIngredients.setAdapter(mRecipeDetailIngredientsAdapter);
+        mRecyclerViewStepDescriptions.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerViewStepDescriptions.setAdapter(mRecipeDetailStepDescriptionsAdapter);
 
 
-            mRecyclerViewIngredients = (RecyclerView) rootView.findViewById(R.id.recipe_detail_ingredients_recycler_view);
-            mRecyclerViewStepDescriptions = (RecyclerView) rootView.findViewById(R.id.recipe_detail_steps_recycler_view);
+        if(rootView.findViewById(R.id.recipe_steps_fragment) != null) {
 
-            if (mRecipeDetailIngredientsAdapter == null) {
-                mRecipeDetailIngredientsAdapter = new RecipeDetailIngredientsAdapter(mRecipe, getActivity());
-            } else {
-                mRecipeDetailIngredientsAdapter.setRecipeData(mRecipe);
-            }
-            if (mRecipeDetailStepDescriptionsAdapter == null) {
-                mRecipeDetailStepDescriptionsAdapter = new RecipeDetailStepDescriptionsAdapter(mRecipe, getActivity());
-            } else {
-                mRecipeDetailStepDescriptionsAdapter.setRecipeData(mRecipe);
-            }
-            mRecyclerViewIngredients.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mRecyclerViewIngredients.setAdapter(mRecipeDetailIngredientsAdapter);
-            mRecyclerViewStepDescriptions.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mRecyclerViewStepDescriptions.setAdapter(mRecipeDetailStepDescriptionsAdapter);
+
+
+
         }
 
 
 
 
-        return rootView;
+            return rootView;
     }
 }
