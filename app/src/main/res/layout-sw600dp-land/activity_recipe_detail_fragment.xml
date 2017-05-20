@@ -4,6 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recipe_details_fragment" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recipe_steps_fragment" />
+    <!--
     <include
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,6 +27,8 @@
         android:id="@+id/recipe_steps_fragment"
         android:layout_weight="1"
         layout="@layout/activity_recipe_step_detail" />
+
+        -->
 
     <!--
     <fragment

@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recipe_details_fragment"
-        layout="@layout/activity_recipe_ingredient_direction" />
+        android:id="@+id/recipe_details_fragment" />
+
+    <!--    layout="@layout/activity_recipe_ingredient_direction" /> -->
 
 
     <!--

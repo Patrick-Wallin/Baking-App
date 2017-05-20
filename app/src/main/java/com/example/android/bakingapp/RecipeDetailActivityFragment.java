@@ -1,5 +1,6 @@
 package com.example.android.bakingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -57,12 +58,12 @@ public class RecipeDetailActivityFragment extends Fragment {
         mRecyclerViewStepDescriptions.setAdapter(mRecipeDetailStepDescriptionsAdapter);
 
 
-        if(rootView.findViewById(R.id.recipe_steps_fragment) != null) {
+        //if(rootView.findViewById(R.id.recipe_steps_fragment) != null) {
 
 
 
 
-        }
+        //}
 
 
 
