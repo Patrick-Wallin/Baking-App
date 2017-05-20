@@ -16,7 +16,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_detail);
+        setContentView(R.layout.activity_recipe_detail_fragment);
 
         if(savedInstanceState == null) {
             Intent intent = getIntent();
@@ -48,7 +48,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     //RecipeDetailActivityFragment recipeDetailActivityFragment = new RecipeDetailActivityFragment();
                     //recipeDetailActivityFragment.setArguments(recipeDetail);
                     //getSupportFragmentManager().beginTransaction().add(R.id.activity_recipe_detail_container, recipeDetailActivityFragment).commit();
-                    getSupportFragmentManager().beginTransaction().add(R.id.activity_recipe_detail_container, recipeDetailActivityFragment).commit();
+                    getSupportFragmentManager().beginTransaction().add(R.id.recipe_details_fragment, recipeDetailActivityFragment).commit();
                 }
             }
         }
