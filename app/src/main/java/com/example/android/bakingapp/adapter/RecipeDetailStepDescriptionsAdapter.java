@@ -2,7 +2,10 @@ package com.example.android.bakingapp.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.RecipeDetailStepInstructionActivity;
+import com.example.android.bakingapp.RecipeDetailStepInstructionActivityFragment;
 import com.example.android.bakingapp.data.IngredientData;
 import com.example.android.bakingapp.data.RecipeData;
 import com.example.android.bakingapp.data.StepData;
@@ -24,9 +28,11 @@ public class RecipeDetailStepDescriptionsAdapter extends RecyclerView.Adapter<Re
     private RecipeData mRecipeData;
     private Context mContext;
 
+
     public RecipeDetailStepDescriptionsAdapter(RecipeData recipeData, Context context) {
         mRecipeData = recipeData;
         mContext = context;
+
     }
 
     public void setRecipeData(RecipeData recipeData) {
@@ -56,12 +62,26 @@ public class RecipeDetailStepDescriptionsAdapter extends RecyclerView.Adapter<Re
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Bundle recipeDetail = new Bundle();
-                    //recipeDetail.putParcelable("currentStepData", data.get(position));
-                    Intent intent = new Intent(mContext, RecipeDetailStepInstructionActivity.class);
-                    intent.putExtra("recipeName",mRecipeData.getName());
-                    intent.putExtra("currentStepData", data.get(position));
-                    mContext.startActivity(intent);
+                    Resources resources = ((AppCompatActivity)mContext).getResources();
+                    boolean isThisInLandscape = resources.getBoolean(R.bool.isItInLandscape);
+                    boolean isThisInPhone = resources.getBoolean(R.bool.isItInPhone);
+
+                    if(isThisInLandscape && !isThisInPhone) {
+                        Bundle recipeSteps = new Bundle();
+                        recipeSteps.putParcelable("currentStepData",data.get(position));
+                        RecipeDetailStepInstructionActivityFragment recipeDetailStepInstructionActivityFragment = new RecipeDetailStepInstructionActivityFragment();
+                        recipeDetailStepInstructionActivityFragment.setArguments(recipeSteps);
+
+                        FragmentManager manager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                        manager.beginTransaction().add(R.id.recipe_details_fragment, recipeDetailStepInstructionActivityFragment).commit();
+
+                    }else {
+                        Intent intent = new Intent(mContext, RecipeDetailStepInstructionActivity.class);
+                        intent.putExtra("recipeName", mRecipeData.getName());
+                        intent.putExtra("currentStepData", data.get(position));
+                        mContext.startActivity(intent);
+                    }
+
                 }
             });
         }

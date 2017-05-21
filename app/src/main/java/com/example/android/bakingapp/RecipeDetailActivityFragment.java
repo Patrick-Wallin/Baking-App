@@ -6,9 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.Toast;
 
 import com.example.android.bakingapp.adapter.RecipeDetailIngredientsAdapter;
 import com.example.android.bakingapp.adapter.RecipeDetailStepDescriptionsAdapter;
@@ -37,7 +40,7 @@ public class RecipeDetailActivityFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_recipe_detail_fragment,container,false);
+        View rootView = inflater.inflate(R.layout.activity_recipe_ingredient_direction,container,false);
 
         mRecyclerViewIngredients = (RecyclerView) rootView.findViewById(R.id.recipe_detail_ingredients_recycler_view);
         mRecyclerViewStepDescriptions = (RecyclerView) rootView.findViewById(R.id.recipe_detail_steps_recycler_view);
@@ -52,6 +55,7 @@ public class RecipeDetailActivityFragment extends Fragment {
         } else {
             mRecipeDetailStepDescriptionsAdapter.setRecipeData(mRecipe);
         }
+
         mRecyclerViewIngredients.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerViewIngredients.setAdapter(mRecipeDetailIngredientsAdapter);
         mRecyclerViewStepDescriptions.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -70,4 +74,7 @@ public class RecipeDetailActivityFragment extends Fragment {
 
             return rootView;
     }
+
+
+
 }

@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.android.bakingapp.adapter.RecipeDetailStepDescriptionsAdapter;
 import com.example.android.bakingapp.data.RecipeData;
 import com.example.android.bakingapp.data.StepData;
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -50,14 +52,9 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
         if(mStepData != null) {
             mPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.playerView);
             initializePlayer(Uri.parse(mStepData.getVideoUrl()));
-
-            boolean isThisInLandscape = getResources().getBoolean(R.bool.isItInLandscape);
-
-            //if(!isThisInLandscape) {
-                TextView mInstructionTextView = (TextView) rootView.findViewById(R.id.instruction_description_text_view);
+            TextView mInstructionTextView = (TextView) rootView.findViewById(R.id.instruction_description_text_view);
             if(mInstructionTextView != null)
                 mInstructionTextView.setText(mStepData.getDescription());
-            //}
         }
 
         return rootView;
@@ -83,4 +80,6 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
             mExoPlayer.setPlayWhenReady(true);
         }
     }
+
+
 }
