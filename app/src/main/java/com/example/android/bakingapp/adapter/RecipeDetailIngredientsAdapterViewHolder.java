@@ -8,18 +8,19 @@ import com.example.android.bakingapp.R;
 
 import org.w3c.dom.Text;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by piwal on 5/14/2017.
  */
 
 public class RecipeDetailIngredientsAdapterViewHolder extends RecyclerView.ViewHolder {
-    final TextView mIngredientTextView;
+    @BindView(R.id.ingredient_info_text_view) public TextView mIngredientTextView;
 
     public RecipeDetailIngredientsAdapterViewHolder(View itemView) {
         super(itemView);
 
-        mIngredientTextView = (TextView) itemView.findViewById(R.id.ingredient_info_text_view);
-
-
+        ButterKnife.bind(this,itemView);
     }
 }

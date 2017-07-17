@@ -16,66 +16,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_margin="5dp"
-            android:background="@drawable/customborder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:text="Ingredients"
-                android:id="@+id/ingredient_title_text_view"
-                style="@style/Base.TextAppearance.AppCompat.Large"
-                android:layout_gravity="center_vertical"
-                android:background="@color/colorPrimary"
-                android:textColor="@android:color/white"
-                android:gravity="left"
-                android:padding="6dp"
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_margin="5dp"
+                android:background="@drawable/customborder"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recipe_detail_ingredients_recycler_view"
+                <TextView
+                    android:text="Ingredients"
+                    android:id="@+id/ingredient_title_text_view"
+                    style="@style/Base.TextAppearance.AppCompat.Large"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@android:color/white"
+                    android:gravity="left"
+                    android:padding="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_margin="5dp"
-            android:background="@drawable/customborder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-    <!--
-    </android.support.v7.widget.CardView>
-    -->
-
-    <TextView
-        android:text="Directions"
-        style="@style/Base.TextAppearance.AppCompat.Large"
-        android:layout_gravity="center_vertical"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        android:gravity="left"
-        android:padding="6dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recipe_detail_steps_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
-        </LinearLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recipe_detail_ingredients_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_margin="5dp"
+                android:background="@drawable/customborder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="Directions"
+                    style="@style/Base.TextAppearance.AppCompat.Large"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@android:color/white"
+                    android:gravity="left"
+                    android:padding="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recipe_detail_steps_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

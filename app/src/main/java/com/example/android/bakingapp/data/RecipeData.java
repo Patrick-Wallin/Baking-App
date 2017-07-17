@@ -22,6 +22,8 @@ public class RecipeData implements Parcelable {
     private List<IngredientData> mIngredientData;
     private List<StepData> mStepData;
 
+    private List<RecipeData> mObjList;
+
     public RecipeData(JSONObject json) {
         if(json != null) {
             if(json.has("id")) {

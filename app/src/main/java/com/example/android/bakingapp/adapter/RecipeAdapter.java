@@ -43,7 +43,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapterViewHolder>
 
     @Override
     public void onBindViewHolder(RecipeAdapterViewHolder holder, int position) {
-        Log.d("onbindviewholder!","");
         if(position >= 0 && !mRecipeData.isEmpty() && mRecipeData.size() > position) {
             final RecipeData recipe = mRecipeData.get(position);
 
@@ -52,9 +51,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapterViewHolder>
 
             String imageName = recipe.getImage().trim();
 
-            if(imageName.isEmpty())
-                holder.mRecipeImageView.setImageResource(R.drawable.default_no_image_found);
-            else {
+            if(!imageName.isEmpty()) {
                 Picasso.with(mContext)
                         .load(imageName)
                         .placeholder(R.drawable.default_no_image_found)
@@ -65,10 +62,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapterViewHolder>
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Bundle recipeDetail = new Bundle();
-                    //recipeDetail.putParcelable("currentRecipe",recipe);
                     Intent intent = new Intent(mContext, RecipeDetailActivity.class);
-                    intent.putExtra("currentRecipe",recipe);
+                    intent.putExtra(mContext.getString(R.string.current_receipe),recipe);
                     mContext.startActivity(intent);
                 }
             });
@@ -87,5 +82,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapterViewHolder>
     public void setRecipeData(List<RecipeData> recipeData) {
         mRecipeData = (ArrayList)recipeData;
         notifyDataSetChanged();
+    }
+
+    public ArrayList<RecipeData> getRecipeData() {
+        return mRecipeData;
     }
 }

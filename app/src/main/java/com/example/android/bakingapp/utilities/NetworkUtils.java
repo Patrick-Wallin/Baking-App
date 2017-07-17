@@ -3,6 +3,8 @@ package com.example.android.bakingapp.utilities;
 import android.content.Context;
 import android.net.Uri;
 
+import com.example.android.bakingapp.R;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -25,7 +27,7 @@ public class NetworkUtils {
         //https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json
         //http://go.udacity.com/android-baking-app-json
         Uri builtUri = Uri
-                .parse("https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json")
+                .parse(mContext.getString(R.string.baking_json_url))
                 .buildUpon()
                 .build();
 

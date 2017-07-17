@@ -23,6 +23,7 @@
 
         <ImageView
             android:id="@+id/recipe_card_image_view"
+            android:src="@drawable/default_no_image_found"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"

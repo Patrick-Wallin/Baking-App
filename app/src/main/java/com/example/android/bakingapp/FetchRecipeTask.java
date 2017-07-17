@@ -31,7 +31,6 @@ public class FetchRecipeTask extends AsyncTask<Void, Void, List<RecipeData>> {
         mRootView = rootView;
     }
 
-
     @Override
     protected List<RecipeData> doInBackground(Void... params) {
         NetworkUtils networkUtils = new NetworkUtils(mContext);

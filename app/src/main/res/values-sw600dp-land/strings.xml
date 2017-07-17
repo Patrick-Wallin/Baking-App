@@ -3,4 +3,5 @@
 
     <bool name="isItInLandscape">true</bool>
     <bool name="isItInPhone">false</bool>
+    <string name="current_receipe">CurrentRecipe</string>
 </resources>

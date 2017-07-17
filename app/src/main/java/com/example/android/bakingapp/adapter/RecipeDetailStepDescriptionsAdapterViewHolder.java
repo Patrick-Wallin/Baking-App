@@ -6,16 +6,19 @@ import android.widget.TextView;
 
 import com.example.android.bakingapp.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by piwal on 5/15/2017.
  */
 
 public class RecipeDetailStepDescriptionsAdapterViewHolder extends RecyclerView.ViewHolder {
-    final TextView mStepDescriptionTextView;
+    @BindView(R.id.step_description_text_view) public TextView mStepDescriptionTextView;
 
     public RecipeDetailStepDescriptionsAdapterViewHolder(View itemView) {
         super(itemView);
 
-        mStepDescriptionTextView = (TextView)itemView.findViewById(R.id.step_description_text_view);
+        ButterKnife.bind(this,itemView);
     }
 }

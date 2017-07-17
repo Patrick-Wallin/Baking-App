@@ -1,5 +1,6 @@
 package com.example.android.bakingapp;
 
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +13,8 @@ import com.example.android.bakingapp.adapter.RecipeAdapter;
 import com.example.android.bakingapp.data.RecipeData;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         boolean isThisInLandscape = getResources().getBoolean(R.bool.isItInLandscape);
         boolean isThisInPhone = getResources().getBoolean(R.bool.isItInPhone);
+
         if(isThisInLandscape) {
             gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
             if(!isThisInPhone)
@@ -46,11 +50,38 @@ public class MainActivity extends AppCompatActivity {
 
         //mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        if(mRecipeAdapter == null) {
-            mRecipeAdapter = new RecipeAdapter(new ArrayList<RecipeData>(),this);
+        if(savedInstanceState != null) {
+            ArrayList<RecipeData> a = savedInstanceState.getParcelableArrayList("RecipeList");
+            if (mRecipeAdapter == null) {
+                mRecipeAdapter = new RecipeAdapter(a, this);
+            }else {
+                mRecipeAdapter.setRecipeData(a);
+            }
+
+        }else {
+            if (mRecipeAdapter == null) {
+                mRecipeAdapter = new RecipeAdapter(new ArrayList<RecipeData>(), this);
+            }
         }
+
         mRecyclerView.setAdapter(mRecipeAdapter);
-        loadRecipeData();
+        if (mRecipeAdapter.getItemCount() == 0)
+            loadRecipeData();
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        ArrayList<RecipeData> a = savedInstanceState.getParcelableArrayList("RecipeList");
+        mRecipeAdapter.setRecipeData(a);
+        //mRecipeAdapter.setRecipeData(savedInstanceState.getParcelableArrayList("ReceiptList"));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("RecipeList",mRecipeAdapter.getRecipeData());
     }
 
     private void loadRecipeData() {

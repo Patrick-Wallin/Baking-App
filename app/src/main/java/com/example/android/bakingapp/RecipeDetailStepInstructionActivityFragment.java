@@ -37,8 +37,12 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments().containsKey("currentStepData")) {
-            mStepData = getArguments().getParcelable("currentStepData");
+        if(savedInstanceState != null) {
+            mStepData = savedInstanceState.getParcelable("StepValue");
+        }else {
+            if (getArguments().containsKey("currentStepData")) {
+                mStepData = getArguments().getParcelable("currentStepData");
+            }
         }
     }
 
@@ -62,6 +66,20 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
 
         return rootView;
 
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState != null) {
+            mStepData = savedInstanceState.getParcelable("StepValue");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("StepValue",mStepData);
     }
 
     private void initializePlayer(Uri mediaUri) {

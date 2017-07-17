@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.example.android.bakingapp.data.RecipeData;
 import com.example.android.bakingapp.data.StepData;
@@ -29,10 +30,20 @@ public class RecipeDetailStepInstructionActivity extends AppCompatActivity {
                 recipeDetailSteps.putParcelable("currentStepData",data);
                 RecipeDetailStepInstructionActivityFragment recipeDetailStepInstructionActivityFragment = new RecipeDetailStepInstructionActivityFragment();
                 recipeDetailStepInstructionActivityFragment.setArguments(recipeDetailSteps);
-                getSupportFragmentManager().beginTransaction().add(R.id.activity_recipe_step_detail_container,recipeDetailStepInstructionActivityFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_step_detail_container,recipeDetailStepInstructionActivityFragment).commit();
             }
         }
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -24,12 +24,15 @@ public class RecipeDetailActivityFragment extends Fragment {
     private RecyclerView mRecyclerViewStepDescriptions;
     private RecipeDetailStepDescriptionsAdapter mRecipeDetailStepDescriptionsAdapter;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments().containsKey("currentRecipe")) {
-            mRecipe = getArguments().getParcelable("currentRecipe");
+        if(savedInstanceState != null) {
+            mRecipe = savedInstanceState.getParcelable("RecipeValue");
+        }else {
+            if (getArguments().containsKey(getString(R.string.current_receipe))) {
+                mRecipe = getArguments().getParcelable(getString(R.string.current_receipe));
+            }
         }
     }
 
@@ -39,8 +42,6 @@ public class RecipeDetailActivityFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_recipe_detail_fragment,container,false);
 
         if(rootView.findViewById(R.id.recipe_steps_fragment) == null) {
-
-
             mRecyclerViewIngredients = (RecyclerView) rootView.findViewById(R.id.recipe_detail_ingredients_recycler_view);
             mRecyclerViewStepDescriptions = (RecyclerView) rootView.findViewById(R.id.recipe_detail_steps_recycler_view);
 
@@ -58,6 +59,8 @@ public class RecipeDetailActivityFragment extends Fragment {
             mRecyclerViewIngredients.setAdapter(mRecipeDetailIngredientsAdapter);
             mRecyclerViewStepDescriptions.setLayoutManager(new LinearLayoutManager(getActivity()));
             mRecyclerViewStepDescriptions.setAdapter(mRecipeDetailStepDescriptionsAdapter);
+
+
         }
 
 
@@ -65,4 +68,20 @@ public class RecipeDetailActivityFragment extends Fragment {
 
         return rootView;
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState != null) {
+            mRecipe = savedInstanceState.getParcelable("RecipeValue");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("RecipeValue",mRecipe);
+    }
+
+
 }

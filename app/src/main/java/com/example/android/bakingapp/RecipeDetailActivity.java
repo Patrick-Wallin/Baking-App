@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.example.android.bakingapp.data.RecipeData;
 
@@ -19,17 +20,28 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         if(savedInstanceState == null) {
             Intent intent = getIntent();
-            if(intent.hasExtra("currentRecipe")) {
-                RecipeData data = getIntent().getParcelableExtra("currentRecipe");
+            if(intent.hasExtra(getString(R.string.current_receipe))) {
+                RecipeData data = getIntent().getParcelableExtra(getString(R.string.current_receipe));
                 setTitle(data.getName());
                 Bundle recipeDetail = new Bundle();
-                recipeDetail.putParcelable("currentRecipe",data);
+                recipeDetail.putParcelable(getString(R.string.current_receipe),data);
                 RecipeDetailActivityFragment recipeDetailActivityFragment = new RecipeDetailActivityFragment();
                 recipeDetailActivityFragment.setArguments(recipeDetail);
-                getSupportFragmentManager().beginTransaction().add(R.id.activity_recipe_detail_container,recipeDetailActivityFragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_detail_container,recipeDetailActivityFragment).commit();
             }
         }
 
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
 
     }
 }
