@@ -1,16 +1,21 @@
 package com.example.android.bakingapp;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.bakingapp.data.RecipeData;
 import com.example.android.bakingapp.data.StepData;
+import com.example.android.bakingapp.utilities.NetworkUtils;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
@@ -32,7 +37,7 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
     private StepData mStepData;
     private SimpleExoPlayer mExoPlayer;
     private SimpleExoPlayerView mPlayerView;
-
+    private Context mContext;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,22 +51,50 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_recipe_step_detail_fragment,container,false);
 
+        ImageView noVideoImageView = (ImageView) rootView.findViewById(R.id.no_video_image_view);
+
         if(mStepData != null) {
             mPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.playerView);
-            initializePlayer(Uri.parse(mStepData.getVideoUrl()));
+            NetworkUtils networkUtils = new NetworkUtils(mContext);
+            if (networkUtils.isNetworkConnected()) {
+                if (mStepData.getVideoUrl().trim().isEmpty()) {
+                    mPlayerView.setVisibility(View.GONE);
+                    noVideoImageView.setVisibility(View.VISIBLE);
+                    new AlertDialog.Builder(mContext)
+                            .setTitle(mContext.getString(R.string.error_message_title))
+                            .setMessage(mContext.getString(R.string.no_video_link))
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                }else {
+                    mPlayerView.setVisibility(View.VISIBLE);
+                    noVideoImageView.setVisibility(View.GONE);
+                    initializePlayer(Uri.parse(mStepData.getVideoUrl()));
+                }
+            }else {
+                mPlayerView.setVisibility(View.GONE);
+                noVideoImageView.setVisibility(View.VISIBLE);
+                networkUtils.showAlertMessageAboutNoInternetConnection();
+            }
 
             boolean isThisInLandscape = getResources().getBoolean(R.bool.isItInLandscape);
 
-            //if(!isThisInLandscape) {
-                TextView mInstructionTextView = (TextView) rootView.findViewById(R.id.instruction_description_text_view);
+            TextView mInstructionTextView = (TextView) rootView.findViewById(R.id.instruction_description_text_view);
             if(mInstructionTextView != null)
                 mInstructionTextView.setText(mStepData.getDescription());
-            //}
         }
 
         return rootView;
@@ -84,16 +117,11 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
 
     private void initializePlayer(Uri mediaUri) {
         if (mExoPlayer == null) {
-            // Create an instance of the ExoPlayer.
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
             mPlayerView.setPlayer(mExoPlayer);
 
-            // Set the ExoPlayer.EventListener to this activity.
-            //mExoPlayer.addListener(this);
-
-            // Prepare the MediaSource.
             String userAgent = Util.getUserAgent(getContext(), "ClassicalMusicQuiz");
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                     getContext(), userAgent), new DefaultExtractorsFactory(), null, null);

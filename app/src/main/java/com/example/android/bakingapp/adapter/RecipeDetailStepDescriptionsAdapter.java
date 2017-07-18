@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.RecipeDetailStepInstructionActivity;
+import com.example.android.bakingapp.StepInstructionListener;
 import com.example.android.bakingapp.data.IngredientData;
 import com.example.android.bakingapp.data.RecipeData;
 import com.example.android.bakingapp.data.StepData;
@@ -56,12 +57,8 @@ public class RecipeDetailStepDescriptionsAdapter extends RecyclerView.Adapter<Re
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Bundle recipeDetail = new Bundle();
-                    //recipeDetail.putParcelable("currentStepData", data.get(position));
-                    Intent intent = new Intent(mContext, RecipeDetailStepInstructionActivity.class);
-                    intent.putExtra("recipeName",mRecipeData.getName());
-                    intent.putExtra("currentStepData", data.get(position));
-                    mContext.startActivity(intent);
+                    StepInstructionListener listener = (StepInstructionListener) mContext;
+                    listener.onClicked(mRecipeData.getName(),data.get(position));
                 }
             });
         }

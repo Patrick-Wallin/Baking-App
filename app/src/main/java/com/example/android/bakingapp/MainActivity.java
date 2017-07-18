@@ -7,10 +7,13 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.example.android.bakingapp.adapter.RecipeAdapter;
 import com.example.android.bakingapp.data.RecipeData;
+import com.example.android.bakingapp.utilities.NetworkUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,8 +68,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mRecyclerView.setAdapter(mRecipeAdapter);
-        if (mRecipeAdapter.getItemCount() == 0)
-            loadRecipeData();
+
+        TextView messageTextView = (TextView)findViewById(R.id.main_message_text_view);
+        NetworkUtils networkUtils = new NetworkUtils(MainActivity.this);
+        if (networkUtils.isNetworkConnected()) {
+            messageTextView.setVisibility(View.GONE);
+            if (mRecipeAdapter.getItemCount() == 0)
+                loadRecipeData();
+        }else {
+            messageTextView.setVisibility(View.VISIBLE);
+            networkUtils.showAlertMessageAboutNoInternetConnection();
+        }
 
     }
 

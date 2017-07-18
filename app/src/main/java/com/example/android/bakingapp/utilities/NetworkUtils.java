@@ -1,7 +1,11 @@
 package com.example.android.bakingapp.utilities;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 
 import com.example.android.bakingapp.R;
 
@@ -21,6 +25,22 @@ public class NetworkUtils {
 
     public NetworkUtils(Context context) {
         mContext = context;
+    }
+
+    public boolean isNetworkConnected() {
+        ConnectivityManager connMgr = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
+    }
+
+    public void showAlertMessageAboutNoInternetConnection() {
+        new AlertDialog.Builder(mContext)
+                .setTitle(mContext.getString(R.string.no_internet_connection_title))
+                .setMessage(mContext.getString(R.string.no_internet_connection_message))
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).setIcon(android.R.drawable.ic_dialog_alert).show();
     }
 
     public URL buildUrl() {
