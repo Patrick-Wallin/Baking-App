@@ -3,7 +3,7 @@
 
     <bool name="isItInLandscape">false</bool>
     <bool name="isItInPhone">true</bool>
-    
+
     <string name="baking_json_url">https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json</string>
     <string name="current_receipe">CurrentRecipe</string>
 
@@ -11,4 +11,8 @@
     <string name="no_internet_connection_message">It looks like your internet connection is off. \n Please turn it on and try again</string>
     <string name="error_message_title">Error Message</string>
     <string name="no_video_link">There is no video for this instruction.</string>
+    <string name="appwidget_text">Recipe</string>
+    <string name="add_widget">Add widget</string>
+
+    <string name="id">id</string>
 </resources>

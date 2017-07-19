@@ -15,6 +15,12 @@ public class IngredientData implements Parcelable {
     private String mMeasure;
     private String mIngredient;
 
+    public IngredientData(String quantity, String measure, String ingredient) {
+        mQuantity = quantity;
+        mMeasure = measure;
+        mIngredient = ingredient;
+    }
+
     public IngredientData(JSONObject json) {
         if(json != null) {
             if (json.has("quantity")) {

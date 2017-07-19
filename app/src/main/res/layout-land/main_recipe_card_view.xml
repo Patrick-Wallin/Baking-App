@@ -35,35 +35,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Name"
-                    android:id="@+id/name_text_view"
-                    android:padding="10dp"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    />
+                    android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/servings_image_view"
-                    android:src="@drawable/ic_servings"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/name_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:padding="10dp"
+                        android:text="Name"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="yrdy"
-                    android:id="@+id/servings_text_view"
-                    android:padding="10dp"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold"
-                    />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/servings_image_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_servings" />
+
+                        <TextView
+                            android:id="@+id/servings_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="yrdy"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </RelativeLayout>
 
             </LinearLayout>
 
