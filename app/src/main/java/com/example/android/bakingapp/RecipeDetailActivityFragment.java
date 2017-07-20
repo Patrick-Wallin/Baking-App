@@ -45,7 +45,7 @@ public class RecipeDetailActivityFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(savedInstanceState != null) {
-            mRecipe = savedInstanceState.getParcelable("RecipeValue");
+            mRecipe = savedInstanceState.getParcelable(getString(R.string.recipe_data));
         }else {
             if (getArguments().containsKey(getString(R.string.current_receipe))) {
                 mRecipe = getArguments().getParcelable(getString(R.string.current_receipe));
@@ -76,30 +76,23 @@ public class RecipeDetailActivityFragment extends Fragment {
             }
         });
 
-        //if(rootView.findViewById(R.id.recipe_steps_fragment) == null) {
-            mRecyclerViewIngredients = (RecyclerView) rootView.findViewById(R.id.recipe_detail_ingredients_recycler_view);
-            mRecyclerViewStepDescriptions = (RecyclerView) rootView.findViewById(R.id.recipe_detail_steps_recycler_view);
+        mRecyclerViewIngredients = (RecyclerView) rootView.findViewById(R.id.recipe_detail_ingredients_recycler_view);
+        mRecyclerViewStepDescriptions = (RecyclerView) rootView.findViewById(R.id.recipe_detail_steps_recycler_view);
 
-            if (mRecipeDetailIngredientsAdapter == null) {
-                mRecipeDetailIngredientsAdapter = new RecipeDetailIngredientsAdapter(mRecipe, getActivity());
-            } else {
-                mRecipeDetailIngredientsAdapter.setRecipeData(mRecipe);
-            }
-            if (mRecipeDetailStepDescriptionsAdapter == null) {
-                mRecipeDetailStepDescriptionsAdapter = new RecipeDetailStepDescriptionsAdapter(mRecipe, getActivity());
-            } else {
-                mRecipeDetailStepDescriptionsAdapter.setRecipeData(mRecipe);
-            }
-            mRecyclerViewIngredients.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mRecyclerViewIngredients.setAdapter(mRecipeDetailIngredientsAdapter);
-            mRecyclerViewStepDescriptions.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mRecyclerViewStepDescriptions.setAdapter(mRecipeDetailStepDescriptionsAdapter);
-
-
-        //}
-
-
-
+        if (mRecipeDetailIngredientsAdapter == null) {
+            mRecipeDetailIngredientsAdapter = new RecipeDetailIngredientsAdapter(mRecipe, getActivity());
+        } else {
+            mRecipeDetailIngredientsAdapter.setRecipeData(mRecipe);
+        }
+        if (mRecipeDetailStepDescriptionsAdapter == null) {
+            mRecipeDetailStepDescriptionsAdapter = new RecipeDetailStepDescriptionsAdapter(mRecipe, getActivity());
+        } else {
+            mRecipeDetailStepDescriptionsAdapter.setRecipeData(mRecipe);
+        }
+        mRecyclerViewIngredients.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerViewIngredients.setAdapter(mRecipeDetailIngredientsAdapter);
+        mRecyclerViewStepDescriptions.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerViewStepDescriptions.setAdapter(mRecipeDetailStepDescriptionsAdapter);
 
         return rootView;
     }
@@ -108,14 +101,14 @@ public class RecipeDetailActivityFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(savedInstanceState != null) {
-            mRecipe = savedInstanceState.getParcelable("RecipeValue");
+            mRecipe = savedInstanceState.getParcelable(getString(R.string.recipe_data));
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("RecipeValue",mRecipe);
+        outState.putParcelable(getString(R.string.recipe_data),mRecipe);
     }
 
 

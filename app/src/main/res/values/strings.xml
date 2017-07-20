@@ -22,4 +22,17 @@
     <string name="step_title">Steps</string>
     <string name="no_previous_step">This is first step of instruction. No previous step.</string>
     <string name="no_next_step">This is last step of instruction. No next step.</string>
+
+    <string name="recipe_list">RecipeList</string>
+    <string name="current_step_data">currentStepData</string>
+    <string name="recipe_data">recipeData</string>
+    <string name="recipe_name">RecipeName</string>
+    <string name="number_of_steps">numberOfSteps</string>
+
+    <string name="video_player_name">StepVideo</string>
+
+    <string name="Ingredients_Title">Ingredients</string>
+    <string name="Direction_Title">Directions</string>
+    <string name="Instruction_Title">Instruction</string>
+
 </resources>

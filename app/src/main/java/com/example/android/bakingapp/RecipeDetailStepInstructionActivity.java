@@ -26,20 +26,20 @@ public class RecipeDetailStepInstructionActivity extends AppCompatActivity imple
 
         if(savedInstanceState == null) {
             Intent intent = getIntent();
-            if(intent.hasExtra("recipeName"))
-                setTitle(intent.getStringExtra("recipeName"));
-            if(intent.hasExtra("currentStepData")) {
-                StepData data = getIntent().getParcelableExtra("currentStepData");
+            if(intent.hasExtra(getString(R.string.recipe_name)))
+                setTitle(intent.getStringExtra(getString(R.string.recipe_name)));
+            if(intent.hasExtra(getString(R.string.current_step_data))) {
+                StepData data = getIntent().getParcelableExtra(getString(R.string.current_step_data));
                 Bundle recipeDetailSteps = new Bundle();
-                recipeDetailSteps.putParcelable("currentStepData",data);
-                if(intent.hasExtra("numberOfSteps"))
-                    recipeDetailSteps.putInt("numberOfSteps",getIntent().getIntExtra("numberOfSteps",0));
+                recipeDetailSteps.putParcelable(getString(R.string.current_step_data),data);
+                if(intent.hasExtra(getString(R.string.number_of_steps)))
+                    recipeDetailSteps.putInt(getString(R.string.number_of_steps),getIntent().getIntExtra(getString(R.string.number_of_steps),0));
                 RecipeDetailStepInstructionActivityFragment recipeDetailStepInstructionActivityFragment = new RecipeDetailStepInstructionActivityFragment();
                 recipeDetailStepInstructionActivityFragment.setArguments(recipeDetailSteps);
                 getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_step_detail_container,recipeDetailStepInstructionActivityFragment).commit();
             }
-            if(intent.hasExtra("recipeData")) {
-                mRecipeData = getIntent().getParcelableExtra("recipeData");
+            if(intent.hasExtra(getString(R.string.recipe_data))) {
+                mRecipeData = getIntent().getParcelableExtra(getString(R.string.recipe_data));
             }
         }
 
@@ -60,8 +60,8 @@ public class RecipeDetailStepInstructionActivity extends AppCompatActivity imple
     public void onClickedDirectionButton(int stepId) {
         StepData data = mRecipeData.getStepData().get(stepId);
         Bundle recipeDetailSteps = new Bundle();
-        recipeDetailSteps.putParcelable("currentStepData",data);
-        recipeDetailSteps.putInt("numberOfSteps",mRecipeData.getStepData().size());
+        recipeDetailSteps.putParcelable(getString(R.string.current_step_data),data);
+        recipeDetailSteps.putInt(getString(R.string.number_of_steps),mRecipeData.getStepData().size());
         RecipeDetailStepInstructionActivityFragment recipeDetailStepInstructionActivityFragment = new RecipeDetailStepInstructionActivityFragment();
         recipeDetailStepInstructionActivityFragment.setArguments(recipeDetailSteps);
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_step_detail_container,recipeDetailStepInstructionActivityFragment).commit();

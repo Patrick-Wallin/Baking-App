@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.baking_recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
-        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,1);
 
         boolean isThisInLandscape = getResources().getBoolean(R.bool.isItInLandscape);
@@ -43,15 +42,11 @@ public class MainActivity extends AppCompatActivity {
                 gridLayoutManager.setSpanCount(2);
             else
                 gridLayoutManager.setSpanCount(1);
-            //linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            //linearLayoutManager.setS;
         }else {
             gridLayoutManager.setSpanCount(1);
             gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
-            //linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         }
 
-        //mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         if(savedInstanceState != null) {
             ArrayList<RecipeData> a = savedInstanceState.getParcelableArrayList("RecipeList");
@@ -85,15 +80,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        ArrayList<RecipeData> a = savedInstanceState.getParcelableArrayList("RecipeList");
+        ArrayList<RecipeData> a = savedInstanceState.getParcelableArrayList(getString(R.string.recipe_list));
         mRecipeAdapter.setRecipeData(a);
-        //mRecipeAdapter.setRecipeData(savedInstanceState.getParcelableArrayList("ReceiptList"));
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("RecipeList",mRecipeAdapter.getRecipeData());
+        outState.putParcelableArrayList(getString(R.string.recipe_list),mRecipeAdapter.getRecipeData());
     }
 
     private void loadRecipeData() {

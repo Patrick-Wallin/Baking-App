@@ -28,7 +28,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepInstr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
-        if(savedInstanceState == null) {
+        //if(savedInstanceState == null) {
             mLandscapeInTablet = false;
             Intent intent = getIntent();
             if(intent.hasExtra(getString(R.string.current_receipe))) {
@@ -45,14 +45,14 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepInstr
                     RecipeDetailStepInstructionActivityFragment recipeDetailStepInstructionActivityFragment = new RecipeDetailStepInstructionActivityFragment();
                     List<StepData> stepDataList = mRecipeData.getStepData();
                     Bundle recipeDetailSteps = new Bundle();
-                    recipeDetailSteps.putParcelable("currentStepData",(stepDataList.size() > 0 ? stepDataList.get(0) : null));
-                    recipeDetailSteps.putInt("numberOfSteps",stepDataList.size());
-                    recipeDetailSteps.putParcelable("recipeData",mRecipeData);
+                    recipeDetailSteps.putParcelable(getString(R.string.current_step_data),(stepDataList.size() > 0 ? stepDataList.get(0) : null));
+                    recipeDetailSteps.putInt(getString(R.string.number_of_steps),stepDataList.size());
+                    recipeDetailSteps.putParcelable(getString(R.string.recipe_data),mRecipeData);
                     recipeDetailStepInstructionActivityFragment.setArguments(recipeDetailSteps);
                     getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_step_detail_container,recipeDetailStepInstructionActivityFragment).commit();
                 }
             }
-        }
+       // }
 
 
     }
@@ -73,17 +73,17 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepInstr
         if(mLandscapeInTablet == true) {
             RecipeDetailStepInstructionActivityFragment recipeDetailStepInstructionActivityFragment = new RecipeDetailStepInstructionActivityFragment();
             Bundle recipeDetailSteps = new Bundle();
-            recipeDetailSteps.putParcelable("currentStepData",stepData);
-            recipeDetailSteps.putInt("numberOfSteps",numberOfSteps);
-            recipeDetailSteps.putParcelable("recipeData",mRecipeData);
+            recipeDetailSteps.putParcelable(getString(R.string.current_step_data),stepData);
+            recipeDetailSteps.putInt(getString(R.string.number_of_steps),numberOfSteps);
+            recipeDetailSteps.putParcelable(getString(R.string.recipe_data),mRecipeData);
             recipeDetailStepInstructionActivityFragment.setArguments(recipeDetailSteps);
             getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_step_detail_container,recipeDetailStepInstructionActivityFragment).commit();
         }else {
             Intent intent = new Intent(this, RecipeDetailStepInstructionActivity.class);
-            intent.putExtra("recipeName",name);
-            intent.putExtra("currentStepData", stepData);
-            intent.putExtra("numberOfSteps",numberOfSteps);
-            intent.putExtra("recipeData",mRecipeData);
+            intent.putExtra(getString(R.string.recipe_name),name);
+            intent.putExtra(getString(R.string.current_step_data), stepData);
+            intent.putExtra(getString(R.string.number_of_steps),numberOfSteps);
+            intent.putExtra(getString(R.string.recipe_data),mRecipeData);
             this.startActivity(intent);
         }
         //Log.i("TAG",name + stepData.getDescription());

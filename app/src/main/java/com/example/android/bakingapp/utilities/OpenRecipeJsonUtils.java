@@ -25,10 +25,8 @@ public class OpenRecipeJsonUtils {
             //JSONObject jsonRecipe = new JSONObject(recipeJson);
             JSONArray jsonRecipe = new JSONArray(recipeJson);
             if(jsonRecipe != null && jsonRecipe.length() > 0) {
-                Log.d(LOG_TAG,"Json starts with Array!");
                 for(int i = 0; i < jsonRecipe.length(); i++) {
                     if(jsonRecipe.get(i) instanceof JSONObject) {
-                        Log.d(LOG_TAG,"This is an object.");
                         RecipeData data = new RecipeData(jsonRecipe.getJSONObject(i));
                         parsedRecipeData.add(data);
                     }

@@ -33,11 +33,8 @@ public class RecipeDetailIngredientsAdapter extends RecyclerView.Adapter<RecipeD
     @Override
     public RecipeDetailIngredientsAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layoutId;
-
         layoutId = R.layout.ingredient_item;
-
         View view = LayoutInflater.from(parent.getContext()).inflate(layoutId,parent,false);
-
         return new RecipeDetailIngredientsAdapterViewHolder(view);
     }
 

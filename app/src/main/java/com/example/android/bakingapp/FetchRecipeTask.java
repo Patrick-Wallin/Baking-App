@@ -38,15 +38,12 @@ public class FetchRecipeTask extends AsyncTask<Void, Void, List<RecipeData>> {
 
         if(recipeRequestURL != null) {
             try {
-                Log.d(LOG_TAG,recipeRequestURL.toString());
                 String jsonRecipeResponse = networkUtils.getResponseFromHttpUrl(recipeRequestURL);
-                Log.d(LOG_TAG,"json: " + jsonRecipeResponse);
                 return OpenRecipeJsonUtils.getRecipeDataFromJson(jsonRecipeResponse);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
 
         return null;
     }
@@ -61,9 +58,6 @@ public class FetchRecipeTask extends AsyncTask<Void, Void, List<RecipeData>> {
         //super.onPostExecute(recipeData);
         if(recipeData != null) {
             mRecipeAdapter.setRecipeData(recipeData);
-            Log.d(LOG_TAG,"we got some!");
-        }else {
-            Log.d(LOG_TAG,"we did not get some");
         }
     }
 }

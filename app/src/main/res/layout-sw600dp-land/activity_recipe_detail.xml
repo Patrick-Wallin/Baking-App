@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
 
     <FrameLayout
         android:id="@+id/activity_recipe_detail_container"
@@ -13,9 +14,15 @@
         android:layout_height="match_parent"
         android:background="@android:color/darker_gray" />
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
     <FrameLayout
         android:id="@+id/activity_recipe_step_detail_container"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
-
+</LinearLayout>
 </LinearLayout>

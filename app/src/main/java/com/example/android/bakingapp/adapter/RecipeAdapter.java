@@ -33,11 +33,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapterViewHolder>
     @Override
     public RecipeAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layoutId;
-
         layoutId = R.layout.main_recipe_card_view;
-
         View view = LayoutInflater.from(mContext).inflate(layoutId,parent,false);
-
         return new RecipeAdapterViewHolder(view);
     }
 

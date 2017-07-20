@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent">
--->
 <android.support.v7.widget.CardView
     android:id="@+id/recipe_card_view"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -36,11 +30,6 @@
                 android:layout_width="match_parent"
                 android:weightSum="3"
                 android:layout_height="wrap_content">
-            <!--
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-            -->
                     <TextView
                         android:id="@+id/name_text_view"
                         android:layout_width="wrap_content"
@@ -80,67 +69,7 @@
                             android:textColor="@color/colorAccent"
                             android:textStyle="bold" />
                     </LinearLayout>
-            <!--
-                </RelativeLayout>
-            -->
             </LinearLayout>
 
         </RelativeLayout>
-
-        <!--
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/recipe_card_image_view"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-
-                android:layout_margin="5dp" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Name"
-                    android:id="@+id/name_text_view"
-                    android:padding="10dp"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    />
-
-                <ImageView
-                    android:id="@+id/servings_image_view"
-                    android:src="@drawable/ic_servings"
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="yrdy"
-                    android:id="@+id/servings_text_view"
-                    android:padding="10dp"
-                    android:textColor="@color/colorAccent"
-                    android:textStyle="bold"
-                    />
-
-            </LinearLayout>
-
-        </LinearLayout>
-        -->
-
-
-    </android.support.v7.widget.CardView>
-<!-- </LinearLayout> -->
+</android.support.v7.widget.CardView>

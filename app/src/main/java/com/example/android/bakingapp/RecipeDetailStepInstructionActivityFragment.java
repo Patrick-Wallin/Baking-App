@@ -2,6 +2,7 @@ package com.example.android.bakingapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -45,14 +46,14 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(savedInstanceState != null) {
-            mStepData = savedInstanceState.getParcelable("StepValue");
-            mTotalSteps = savedInstanceState.getInt("numberOfSteps");
+            mStepData = savedInstanceState.getParcelable(getString(R.string.current_step_data));
+            mTotalSteps = savedInstanceState.getInt(getString(R.string.number_of_steps));
         }else {
-            if (getArguments().containsKey("currentStepData")) {
-                mStepData = getArguments().getParcelable("currentStepData");
+            if (getArguments().containsKey(getString(R.string.current_step_data))) {
+                mStepData = getArguments().getParcelable(getString(R.string.current_step_data));
             }
-            if (getArguments().containsKey("numberOfSteps")) {
-                mTotalSteps = getArguments().getInt("numberOfSteps");
+            if (getArguments().containsKey(getString(R.string.number_of_steps))) {
+                mTotalSteps = getArguments().getInt(getString(R.string.number_of_steps));
             }
         }
     }
@@ -102,47 +103,49 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
             if(mInstructionTextView != null)
                 mInstructionTextView.setText(mStepData.getDescription());
 
-            Button previousButton = (Button) rootView.findViewById(R.id.previous_step_button);
-            Button nextButton = (Button) rootView.findViewById(R.id.next_step_button);
+            if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                Button previousButton = (Button) rootView.findViewById(R.id.previous_step_button);
+                Button nextButton = (Button) rootView.findViewById(R.id.next_step_button);
 
-            final int iStepId = Integer.valueOf(mStepData.getId());
-            previousButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int iPreviousStepId = iStepId-1;
-                    if(iPreviousStepId < 0) {
-                        new AlertDialog.Builder(mContext)
-                                .setTitle(mContext.getString(R.string.step_title))
-                                .setMessage(mContext.getString(R.string.no_previous_step))
-                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                }).setIcon(android.R.drawable.ic_dialog_alert).show();
-                    }else {
-                        StepDirectionListener stepDirectionListener = (StepDirectionListener)mContext;
-                        stepDirectionListener.onClickedDirectionButton(iPreviousStepId);
+                final int iStepId = Integer.valueOf(mStepData.getId());
+                previousButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int iPreviousStepId = iStepId - 1;
+                        if (iPreviousStepId < 0) {
+                            new AlertDialog.Builder(mContext)
+                                    .setTitle(mContext.getString(R.string.step_title))
+                                    .setMessage(mContext.getString(R.string.no_previous_step))
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                        } else {
+                            StepDirectionListener stepDirectionListener = (StepDirectionListener) mContext;
+                            stepDirectionListener.onClickedDirectionButton(iPreviousStepId);
+                        }
                     }
-                }
-            });
+                });
 
-            nextButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int iNextStepId = iStepId+1;
-                    if(iNextStepId >= mTotalSteps) {
-                        new AlertDialog.Builder(mContext)
-                                .setTitle(mContext.getString(R.string.step_title))
-                                .setMessage(mContext.getString(R.string.no_next_step))
-                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                }).setIcon(android.R.drawable.ic_dialog_alert).show();
-                    }else {
-                        StepDirectionListener stepDirectionListener = (StepDirectionListener)mContext;
-                        stepDirectionListener.onClickedDirectionButton(iNextStepId);
+                nextButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int iNextStepId = iStepId + 1;
+                        if (iNextStepId >= mTotalSteps) {
+                            new AlertDialog.Builder(mContext)
+                                    .setTitle(mContext.getString(R.string.step_title))
+                                    .setMessage(mContext.getString(R.string.no_next_step))
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                        } else {
+                            StepDirectionListener stepDirectionListener = (StepDirectionListener) mContext;
+                            stepDirectionListener.onClickedDirectionButton(iNextStepId);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         return rootView;
@@ -153,16 +156,16 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(savedInstanceState != null) {
-            mStepData = savedInstanceState.getParcelable("StepValue");
-            mTotalSteps = savedInstanceState.getInt("numberOfSteps");
+            mStepData = savedInstanceState.getParcelable(getString(R.string.current_step_data));
+            mTotalSteps = savedInstanceState.getInt(getString(R.string.number_of_steps));
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("StepValue",mStepData);
-        outState.putInt("numberOfSteps",mTotalSteps);
+        outState.putParcelable(getString(R.string.current_step_data),mStepData);
+        outState.putInt(getString(R.string.number_of_steps),mTotalSteps);
     }
 
     private void initializePlayer(Uri mediaUri) {
@@ -172,7 +175,7 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, loadControl);
             mPlayerView.setPlayer(mExoPlayer);
 
-            String userAgent = Util.getUserAgent(getContext(), "ClassicalMusicQuiz");
+            String userAgent = Util.getUserAgent(getContext(), getString(R.string.video_player_name));
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                     getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
             mExoPlayer.prepare(mediaSource);
