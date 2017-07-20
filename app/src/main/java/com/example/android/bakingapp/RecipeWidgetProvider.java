@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.example.android.bakingapp.data.SharedPreference;
+
 /**
  * Implementation of App Widget functionality.
  */
@@ -17,19 +19,17 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        /*
-        if(intent.getAction() == AppWidgetManager.ACTION_APPWIDGET_UPDATE) {
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, getClass()));
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds,R.id.widget_list_item);
-        }
-        */
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.recipe_widget);
+
+            SharedPreference sharedPreference = new SharedPreference();
+            String mRecipeName = sharedPreference.getRecipeNameFavorite(context);
+
+            views.setTextViewText(R.id.widget_recipe_name_text_view,mRecipeName);
 
             Intent intent = new Intent(context,RecipeWidgetRemoteViewsService.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,appWidgetId);

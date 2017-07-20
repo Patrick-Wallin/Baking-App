@@ -1,6 +1,9 @@
 package com.example.android.bakingapp;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -61,6 +64,15 @@ public class RecipeDetailActivityFragment extends Fragment {
             public void onClick(View v) {
                 SharedPreference sharedPreference = new SharedPreference();
                 sharedPreference.saveOrReplaceRecipeFavorite(mContext,mRecipe.getIngredientData(),mRecipe.getName(),mRecipe.getId());
+
+                ComponentName name = new ComponentName(mContext, RecipeWidgetProvider.class);
+                int[] ids = AppWidgetManager.getInstance(mContext).getAppWidgetIds(name);
+
+                Intent intent = new Intent(mContext,RecipeWidgetProvider.class);
+                intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+                mContext.sendBroadcast(intent);
+
             }
         });
 

@@ -58,7 +58,7 @@ public class RecipeDetailStepDescriptionsAdapter extends RecyclerView.Adapter<Re
                 @Override
                 public void onClick(View v) {
                     StepInstructionListener listener = (StepInstructionListener) mContext;
-                    listener.onClicked(mRecipeData.getName(),data.get(position));
+                    listener.onClicked(mRecipeData.getName(),data.get(position), data.size());
                 }
             });
         }

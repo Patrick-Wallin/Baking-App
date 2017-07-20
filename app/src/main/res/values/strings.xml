@@ -15,4 +15,11 @@
     <string name="add_widget">Add widget</string>
 
     <string name="id">id</string>
+
+    <string name="previous_button">Previous</string>
+    <string name="next_button">Next</string>
+
+    <string name="step_title">Steps</string>
+    <string name="no_previous_step">This is first step of instruction. No previous step.</string>
+    <string name="no_next_step">This is last step of instruction. No next step.</string>
 </resources>

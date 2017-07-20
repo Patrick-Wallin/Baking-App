@@ -7,5 +7,5 @@ import com.example.android.bakingapp.data.StepData;
  */
 
 public interface StepInstructionListener {
-    void onClicked(String name, StepData stepData);
+    void onClicked(String name, StepData stepData, int numberofSteps);
 }

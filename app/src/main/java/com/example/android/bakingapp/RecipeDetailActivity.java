@@ -1,8 +1,10 @@
 package com.example.android.bakingapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ import java.util.List;
 public class RecipeDetailActivity extends AppCompatActivity implements StepInstructionListener {
     private boolean mLandscapeInTablet = false;
     private RecipeDetailStepInstructionActivityFragment mRecipeDetailStepInstructionActivityFragment;
+    private RecipeData mRecipeData;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,10 +32,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepInstr
             mLandscapeInTablet = false;
             Intent intent = getIntent();
             if(intent.hasExtra(getString(R.string.current_receipe))) {
-                RecipeData data = getIntent().getParcelableExtra(getString(R.string.current_receipe));
-                setTitle(data.getName());
+                mRecipeData = getIntent().getParcelableExtra(getString(R.string.current_receipe));
+                setTitle(mRecipeData.getName());
                 Bundle recipeDetail = new Bundle();
-                recipeDetail.putParcelable(getString(R.string.current_receipe),data);
+                recipeDetail.putParcelable(getString(R.string.current_receipe),mRecipeData);
                 RecipeDetailActivityFragment recipeDetailActivityFragment = new RecipeDetailActivityFragment();
                 recipeDetailActivityFragment.setArguments(recipeDetail);
                 getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_detail_container,recipeDetailActivityFragment).commit();
@@ -40,9 +43,11 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepInstr
                 if(findViewById(R.id.activity_recipe_step_detail_container) != null) {
                     mLandscapeInTablet = true;
                     RecipeDetailStepInstructionActivityFragment recipeDetailStepInstructionActivityFragment = new RecipeDetailStepInstructionActivityFragment();
-                    List<StepData> stepDataList = data.getStepData();
+                    List<StepData> stepDataList = mRecipeData.getStepData();
                     Bundle recipeDetailSteps = new Bundle();
                     recipeDetailSteps.putParcelable("currentStepData",(stepDataList.size() > 0 ? stepDataList.get(0) : null));
+                    recipeDetailSteps.putInt("numberOfSteps",stepDataList.size());
+                    recipeDetailSteps.putParcelable("recipeData",mRecipeData);
                     recipeDetailStepInstructionActivityFragment.setArguments(recipeDetailSteps);
                     getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_step_detail_container,recipeDetailStepInstructionActivityFragment).commit();
                 }
@@ -64,19 +69,25 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepInstr
     }
 
     @Override
-    public void onClicked(String name, StepData stepData) {
+    public void onClicked(String name, StepData stepData, int numberOfSteps) {
         if(mLandscapeInTablet == true) {
             RecipeDetailStepInstructionActivityFragment recipeDetailStepInstructionActivityFragment = new RecipeDetailStepInstructionActivityFragment();
             Bundle recipeDetailSteps = new Bundle();
             recipeDetailSteps.putParcelable("currentStepData",stepData);
+            recipeDetailSteps.putInt("numberOfSteps",numberOfSteps);
+            recipeDetailSteps.putParcelable("recipeData",mRecipeData);
             recipeDetailStepInstructionActivityFragment.setArguments(recipeDetailSteps);
             getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_step_detail_container,recipeDetailStepInstructionActivityFragment).commit();
         }else {
             Intent intent = new Intent(this, RecipeDetailStepInstructionActivity.class);
             intent.putExtra("recipeName",name);
             intent.putExtra("currentStepData", stepData);
+            intent.putExtra("numberOfSteps",numberOfSteps);
+            intent.putExtra("recipeData",mRecipeData);
             this.startActivity(intent);
         }
         //Log.i("TAG",name + stepData.getDescription());
     }
+
+
 }

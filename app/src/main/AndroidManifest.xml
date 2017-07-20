@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.bakingapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,6 +18,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="com.example.android.bakingapp.RecipeWidgetProvider.ACTION_WIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
         <activity
@@ -26,7 +28,10 @@
             android:name=".RecipeDetailStepInstructionActivity"
             android:parentActivityName=".RecipeDetailActivity"></activity>
 
-        <receiver android:name=".RecipeWidgetProvider">
+        <receiver
+            android:name=".RecipeWidgetProvider"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -35,6 +40,12 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/recipe_widget_provider_info" />
         </receiver>
+
+        <service
+            android:name=".RecipeWidgetRemoteViewsService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

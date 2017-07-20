@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,15 +39,20 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
     private SimpleExoPlayer mExoPlayer;
     private SimpleExoPlayerView mPlayerView;
     private Context mContext;
+    private int mTotalSteps;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(savedInstanceState != null) {
             mStepData = savedInstanceState.getParcelable("StepValue");
+            mTotalSteps = savedInstanceState.getInt("numberOfSteps");
         }else {
             if (getArguments().containsKey("currentStepData")) {
                 mStepData = getArguments().getParcelable("currentStepData");
+            }
+            if (getArguments().containsKey("numberOfSteps")) {
+                mTotalSteps = getArguments().getInt("numberOfSteps");
             }
         }
     }
@@ -95,6 +101,48 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
             TextView mInstructionTextView = (TextView) rootView.findViewById(R.id.instruction_description_text_view);
             if(mInstructionTextView != null)
                 mInstructionTextView.setText(mStepData.getDescription());
+
+            Button previousButton = (Button) rootView.findViewById(R.id.previous_step_button);
+            Button nextButton = (Button) rootView.findViewById(R.id.next_step_button);
+
+            final int iStepId = Integer.valueOf(mStepData.getId());
+            previousButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int iPreviousStepId = iStepId-1;
+                    if(iPreviousStepId < 0) {
+                        new AlertDialog.Builder(mContext)
+                                .setTitle(mContext.getString(R.string.step_title))
+                                .setMessage(mContext.getString(R.string.no_previous_step))
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                    }else {
+                        StepDirectionListener stepDirectionListener = (StepDirectionListener)mContext;
+                        stepDirectionListener.onClickedDirectionButton(iPreviousStepId);
+                    }
+                }
+            });
+
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int iNextStepId = iStepId+1;
+                    if(iNextStepId >= mTotalSteps) {
+                        new AlertDialog.Builder(mContext)
+                                .setTitle(mContext.getString(R.string.step_title))
+                                .setMessage(mContext.getString(R.string.no_next_step))
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                    }else {
+                        StepDirectionListener stepDirectionListener = (StepDirectionListener)mContext;
+                        stepDirectionListener.onClickedDirectionButton(iNextStepId);
+                    }
+                }
+            });
         }
 
         return rootView;
@@ -106,6 +154,7 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if(savedInstanceState != null) {
             mStepData = savedInstanceState.getParcelable("StepValue");
+            mTotalSteps = savedInstanceState.getInt("numberOfSteps");
         }
     }
 
@@ -113,6 +162,7 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable("StepValue",mStepData);
+        outState.putInt("numberOfSteps",mTotalSteps);
     }
 
     private void initializePlayer(Uri mediaUri) {

@@ -44,9 +44,6 @@ public class RecipeWidgetRemoteViewsFactory implements RemoteViewsService.Remote
         mRecipeName = sharedPreference.getRecipeNameFavorite(mContext);
         mRecipeId = sharedPreference.getRecipeIdFavorite(mContext);
 
-        RemoteViews view = new RemoteViews(mContext.getPackageName(), R.layout.recipe_widget_item);
-        view.setTextViewText(R.id.widget_recipe_name_text_view,mRecipeName);
-
         Binder.restoreCallingIdentity(identityToken);
     }
 
