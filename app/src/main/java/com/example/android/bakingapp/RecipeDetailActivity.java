@@ -28,32 +28,29 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepInstr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
-        //if(savedInstanceState == null) {
-            mLandscapeInTablet = false;
-            Intent intent = getIntent();
-            if(intent.hasExtra(getString(R.string.current_receipe))) {
-                mRecipeData = getIntent().getParcelableExtra(getString(R.string.current_receipe));
-                setTitle(mRecipeData.getName());
-                Bundle recipeDetail = new Bundle();
-                recipeDetail.putParcelable(getString(R.string.current_receipe),mRecipeData);
-                RecipeDetailActivityFragment recipeDetailActivityFragment = new RecipeDetailActivityFragment();
-                recipeDetailActivityFragment.setArguments(recipeDetail);
-                getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_detail_container,recipeDetailActivityFragment).commit();
+        mLandscapeInTablet = false;
+        Intent intent = getIntent();
+        if(intent.hasExtra(getString(R.string.current_receipe))) {
+            mRecipeData = getIntent().getParcelableExtra(getString(R.string.current_receipe));
+            setTitle(mRecipeData.getName());
+            Bundle recipeDetail = new Bundle();
+            recipeDetail.putParcelable(getString(R.string.current_receipe),mRecipeData);
+            RecipeDetailActivityFragment recipeDetailActivityFragment = new RecipeDetailActivityFragment();
+            recipeDetailActivityFragment.setArguments(recipeDetail);
+            getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_detail_container,recipeDetailActivityFragment).commit();
 
-                if(findViewById(R.id.activity_recipe_step_detail_container) != null) {
-                    mLandscapeInTablet = true;
-                    RecipeDetailStepInstructionActivityFragment recipeDetailStepInstructionActivityFragment = new RecipeDetailStepInstructionActivityFragment();
-                    List<StepData> stepDataList = mRecipeData.getStepData();
-                    Bundle recipeDetailSteps = new Bundle();
-                    recipeDetailSteps.putParcelable(getString(R.string.current_step_data),(stepDataList.size() > 0 ? stepDataList.get(0) : null));
-                    recipeDetailSteps.putInt(getString(R.string.number_of_steps),stepDataList.size());
-                    recipeDetailSteps.putParcelable(getString(R.string.recipe_data),mRecipeData);
-                    recipeDetailStepInstructionActivityFragment.setArguments(recipeDetailSteps);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_step_detail_container,recipeDetailStepInstructionActivityFragment).commit();
-                }
+            if(findViewById(R.id.activity_recipe_step_detail_container) != null) {
+                mLandscapeInTablet = true;
+                RecipeDetailStepInstructionActivityFragment recipeDetailStepInstructionActivityFragment = new RecipeDetailStepInstructionActivityFragment();
+                List<StepData> stepDataList = mRecipeData.getStepData();
+                Bundle recipeDetailSteps = new Bundle();
+                recipeDetailSteps.putParcelable(getString(R.string.current_step_data),(stepDataList.size() > 0 ? stepDataList.get(0) : null));
+                recipeDetailSteps.putInt(getString(R.string.number_of_steps),stepDataList.size());
+                recipeDetailSteps.putParcelable(getString(R.string.recipe_data),mRecipeData);
+                recipeDetailStepInstructionActivityFragment.setArguments(recipeDetailSteps);
+                getSupportFragmentManager().beginTransaction().replace(R.id.activity_recipe_step_detail_container,recipeDetailStepInstructionActivityFragment).commit();
             }
-       // }
-
+        }
 
     }
 
@@ -86,8 +83,5 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepInstr
             intent.putExtra(getString(R.string.recipe_data),mRecipeData);
             this.startActivity(intent);
         }
-        //Log.i("TAG",name + stepData.getDescription());
     }
-
-
 }

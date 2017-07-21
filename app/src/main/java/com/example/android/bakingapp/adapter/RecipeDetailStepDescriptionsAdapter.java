@@ -14,6 +14,7 @@ import com.example.android.bakingapp.StepInstructionListener;
 import com.example.android.bakingapp.data.IngredientData;
 import com.example.android.bakingapp.data.RecipeData;
 import com.example.android.bakingapp.data.StepData;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -53,6 +54,17 @@ public class RecipeDetailStepDescriptionsAdapter extends RecyclerView.Adapter<Re
             StringBuilder description = new StringBuilder();
             description.append(data.get(position).getShortDescription());
             holder.mStepDescriptionTextView.setText(description);
+
+            String imageName = data.get(position).getThumbnailUrl().trim();
+
+            if(!imageName.isEmpty()) {
+                Picasso.with(mContext)
+                        .load(imageName)
+                        .placeholder(R.drawable.default_no_image_found)
+                        .error(R.drawable.default_no_image_found)
+                        .into(holder.mStepDescriptionImageView);
+            }
+
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

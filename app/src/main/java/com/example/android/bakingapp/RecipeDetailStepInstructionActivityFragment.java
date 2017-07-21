@@ -168,6 +168,32 @@ public class RecipeDetailStepInstructionActivityFragment extends Fragment {
         outState.putInt(getString(R.string.number_of_steps),mTotalSteps);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mExoPlayer != null)
+            mExoPlayer.stop();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        releasePlayer();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        releasePlayer();
+    }
+
+    private void releasePlayer() {
+        if(mExoPlayer != null) {
+            mExoPlayer.stop();
+            mExoPlayer.release();
+            mExoPlayer = null;
+        }
+    }
     private void initializePlayer(Uri mediaUri) {
         if (mExoPlayer == null) {
             TrackSelector trackSelector = new DefaultTrackSelector();
